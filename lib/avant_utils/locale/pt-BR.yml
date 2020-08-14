@@ -1,0 +1,5 @@
+---
+pt-BR:
+  errors:
+    messages:
+      invalid_cnpj: não é um documento válido

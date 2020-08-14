@@ -1,0 +1,8 @@
+# RubyMine project configuration.
+/.idea
+
+# Ignore bundler config.
+/.bundle
+
+# RSpec persistence file.
+/spec/examples.txt
