@@ -1,6 +1,6 @@
 module ActiveModel
   module Validations
-    class CnpjValidator < EachValidator
+    class CpfValidator < EachValidator
       def validate_each(record, attribute, value)
         return if value.blank? && options[:allow_blank]
 
@@ -8,17 +8,17 @@ module ActiveModel
 
         return if format_valid?(value) && document_valid?(value)
 
-        record.errors.add(attribute, :invalid_cnpj, message: options[:message], value: value)
+        record.errors.add(attribute, :invalid_cpf, message: options[:message], value: value)
       end
 
       private
 
       def format_valid?(value)
-        value.to_s =~ %r{\A\d{2}\.\d{3}\.\d{3}/\d{4}-\d{2}\z}
+        value.to_s =~ /\A\d{3}\.\d{3}\.\d{3}-\d{2}\z/
       end
 
       def document_valid?(value)
-        AvantUtils::Cnpj.valid?(value)
+        AvantUtils::Cpf.valid?(value)
       end
     end
   end

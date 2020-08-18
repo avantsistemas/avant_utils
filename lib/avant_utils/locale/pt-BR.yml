@@ -3,3 +3,4 @@ pt-BR:
   errors:
     messages:
       invalid_cnpj: não é um documento válido
+      invalid_cpf: não é um documento válido
