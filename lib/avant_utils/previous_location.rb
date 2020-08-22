@@ -59,9 +59,16 @@ module AvantUtils
 
       def find_previous_location
         referer = request.referer
-        # optamos por guardar somente o path, sem parâmetros, para evitar
-        # estourar o espaço de 4096 bytes disponível para o cookie da sessão
-        URI(referer).path if referer
+
+        return if referer.blank?
+
+        # Guarda somente o path do referenciador para otimizar o armazenamento, já
+        # que normalmente temos somente 4096 bytes disponíveis para o cookie da sessão.
+        path = URI(referer).path
+
+        # Caso o referenciador contenha o parâmetro `spl` com valor 0 ou 1, adiciona spl=0 no
+        # caminho de retorno para preservar o caminho da localização anterior do referenciador.
+        referer.match?(/spl=[01]/) ? path + '?spl=0' : path
       end
 
       def previous_locations
