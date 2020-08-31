@@ -50,7 +50,7 @@ module AvantUtils
       end
 
       def store_previous_location?
-        params[:spl] == '1'
+        params[:spl] == '1' && request.referer.present?
       end
 
       def clear_previous_location?
@@ -59,8 +59,6 @@ module AvantUtils
 
       def find_previous_location
         referer = request.referer
-
-        return if referer.blank?
 
         # Guarda somente o path do referenciador para otimizar o armazenamento, já
         # que normalmente temos somente 4096 bytes disponíveis para o cookie da sessão.
