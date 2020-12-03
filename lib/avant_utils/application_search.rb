@@ -4,6 +4,7 @@ module AvantUtils
 
     def initialize(scope)
       @scope = scope
+      @empty = true
     end
 
     def self.scope(scope = default_scope)
@@ -21,6 +22,10 @@ module AvantUtils
 
     def result
       @scope
+    end
+
+    def empty?
+      @empty
     end
 
     def model_name
@@ -43,11 +48,16 @@ module AvantUtils
         if respond_to?(search_method, true)
           value = value.strip
           instance_variable_set("@#{name}", value)
-          @scope = send(search_method, value) if value.present?
+          narrow_scope(search_method, value) if value.present?
         else
           Rails.logger.warn "#{self.class.name} não possui método `#{search_method}`"
         end
       end
+    end
+
+    def narrow_scope(search_method, value)
+      @scope = send(search_method, value)
+      @empty = false
     end
   end
 end
