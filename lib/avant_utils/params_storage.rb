@@ -1,13 +1,14 @@
 module AvantUtils
   module ParamsStorage
-    def stored_param(param_name)
-      SessionStorage.new(params, session).store_or_retrieve(param_name)
+    def stored_param(param_name, global: false)
+      SessionStorage.new(params, session, global: global).store_or_retrieve(param_name)
     end
 
     class SessionStorage
-      def initialize(params, session)
+      def initialize(params, session, global: false)
         @params = params
         @session = session
+        @global = global
       end
 
       def store_or_retrieve(param_name)
@@ -23,7 +24,7 @@ module AvantUtils
 
       private
 
-      attr_reader :params, :session
+      attr_reader :params, :session, :global
 
       def clear_params?
         params[:clear] == '1'
@@ -57,7 +58,7 @@ module AvantUtils
       end
 
       def params_storage_key
-        params[:controller]
+        global ? 'global' : params[:controller]
       end
 
       def extract_value_from_params(param_name)
