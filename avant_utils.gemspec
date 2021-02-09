@@ -12,6 +12,7 @@ Gem::Specification.new do |spec|
   spec.homepage    = 'https://rubygems.org/gems/avant_utils'
   spec.license     = 'MIT'
 
+  spec.add_development_dependency 'actionpack', '~> 6.0'
   spec.add_development_dependency 'activerecord', '~> 6.0'
   spec.add_development_dependency 'rake', '~> 13.0'
   spec.add_development_dependency 'rspec', '~> 3.9'
