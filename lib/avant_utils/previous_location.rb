@@ -77,5 +77,6 @@ module AvantUtils
         params[:controller]
       end
     end
+    private_constant :SessionStorage
   end
 end

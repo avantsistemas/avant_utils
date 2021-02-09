@@ -78,5 +78,6 @@ module AvantUtils
         end
       end
     end
+    private_constant :SessionStorage
   end
 end
