@@ -61,8 +61,9 @@ module AvantUtils
         private
 
         def render_nav_link
-          link_to @title, 'javascript:void(0)', class: 'nav-link dropdown-toggle', id: dropdown_id, role: 'button',
-                                                data: { toggle: 'dropdown' }, aria: { haspopup: true, expanded: false }
+          link_to "#{@title} ", 'javascript:void(0)', class: 'nav-link dropdown-toggle', id: dropdown_id,
+                                                      role: 'button', data: { toggle: 'dropdown' },
+                                                      aria: { haspopup: true, expanded: false }
         end
 
         def render_dropdown_menu
