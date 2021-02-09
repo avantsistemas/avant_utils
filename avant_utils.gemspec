@@ -8,7 +8,7 @@ Gem::Specification.new do |spec|
   spec.description = 'Códigos utilizados em projetos Ruby on Rails da Avant Sistemas.'
   spec.authors     = ['Lucas Repolês']
   spec.email       = ['repoles@gmail.com']
-  spec.files       = Dir['lib/**/*'] + %w[LICENSE README.md]
+  spec.files       = Dir['lib/**/*'] + %w[LICENSE.md README.md]
   spec.homepage    = 'https://rubygems.org/gems/avant_utils'
   spec.license     = 'MIT'
 
