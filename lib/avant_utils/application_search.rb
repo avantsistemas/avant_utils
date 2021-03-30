@@ -14,7 +14,7 @@ module AvantUtils
 
     def search(attributes)
       narrow_search(attributes) if attributes.present?
-      define_scope(redefine_scope, by: :redefine_scope)
+      define_scope(redefine_scope, defined_by_method: :redefine_scope)
       self
     end
 
@@ -48,10 +48,9 @@ module AvantUtils
 
     def narrow_search(attributes)
       attributes.each do |name, value|
-        search_method = "#{name}_search"
+        search_method = :"#{name}_search"
         if respond_to?(search_method, true)
-          value = value.strip
-          instance_variable_set("@#{name}", value)
+          value = store_attribute(name, value)
           narrow_scope(search_method, value) if value.present?
         else
           Rails.logger.warn "#{self.class.name} não possui método `#{search_method}`"
@@ -59,17 +58,31 @@ module AvantUtils
       end
     end
 
+    def store_attribute(name, value)
+      value = value.strip
+      setter_method = :"#{name}="
+      variable_name = "@#{name}"
+
+      if respond_to?(setter_method, true)
+        send(setter_method, value)
+      else
+        instance_variable_set(variable_name, value)
+      end
+
+      instance_variable_get(variable_name)
+    end
+
     def narrow_scope(search_method, value)
       new_scope = send(search_method, value)
-      define_scope(new_scope, by: search_method)
+      define_scope(new_scope, defined_by_method: search_method)
       @empty = false
     end
 
-    def define_scope(scope, by: nil)
+    def define_scope(scope, defined_by_method: nil)
       unless scope.is_a?(ActiveRecord::Relation)
         message = ["Tentativa de definição do escopo para #{scope || 'nil'}."]
         message << ['O escopo precisa ser um objeto ActiveRecord::Relation.']
-        message << ["Verifique o método `#{by}` de #{self.class}."] if by
+        message << ["Verifique o retorno do método `#{defined_by_method}` de #{self.class}."] if defined_by_method
         raise message.join(' ')
       end
       @scope = scope
