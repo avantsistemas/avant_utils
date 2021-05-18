@@ -1,7 +1,11 @@
 ---
 pt-BR:
+  salution:
+    good_morning: "Bom dia"
+    good_afternoon: "Boa tarde"
+    good_night: "Boa noite"
   errors:
     messages:
-      invalid_cnpj: não é um documento válido
-      invalid_cpf: não é um documento válido
-      invalid_url: não é um endereço válido
+      invalid_cnpj: "não é um documento válido"
+      invalid_cpf: "não é um documento válido"
+      invalid_url: "não é um endereço válido"
