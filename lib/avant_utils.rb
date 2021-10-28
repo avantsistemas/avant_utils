@@ -2,6 +2,7 @@ module AvantUtils
   require 'avant_utils/cnpj'
   require 'avant_utils/cpf'
   require 'avant_utils/url'
+  require 'avant_utils/phone'
   require 'avant_utils/salution'
   require 'avant_utils/params_storage'
   require 'avant_utils/previous_location'
