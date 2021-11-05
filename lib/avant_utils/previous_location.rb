@@ -54,7 +54,7 @@ module AvantUtils
       end
 
       def clear_previous_location?
-        params[:spl] != '0'
+        params[:spl] != '0' && params[:spl] != '1'
       end
 
       def find_previous_location
