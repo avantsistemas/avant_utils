@@ -9,46 +9,28 @@ require:
 AllCops:
   NewCops: enable
 
-  Exclude:
-    - bin/*
-    - db/schema.rb
-
-# https://rubocop.readthedocs.io/en/latest/cops_style/#styleasciicomments
-Style/AsciiComments:
-  Enabled: false
-
-# https://rubocop.readthedocs.io/en/latest/cops_style/#styledocumentation
 Style/Documentation:
   Enabled: false
 
-# https://rubocop.readthedocs.io/en/latest/cops_style/#stylefrozenstringliteralcomment
-Style/FrozenStringLiteralComment:
-  Enabled: false
-
-# https://rubocop.readthedocs.io/en/latest/cops_layout/#layoutlinelength
-Layout/LineLength:
-  Max: 120 # default: 80
-
-# https://rubocop.readthedocs.io/en/latest/cops_metrics/#metricsabcsize
-Metrics/AbcSize:
-  Exclude:
-    - /**/*_spec.rb
-
-# https://rubocop.readthedocs.io/en/latest/cops_metrics/#metricsmethodlength
 Metrics/MethodLength:
-  Max: 15 # default 10
   Exclude:
     - /**/*_spec.rb
 
-# https://rubocop.readthedocs.io/en/latest/cops_metrics/#metricsblocklength
 Metrics/BlockLength:
-  Exclude:
-    - /**/*_spec.rb
+  IgnoredMethods:
+    - namespace
+    - task
+    - describe
+    - context
 
-# https://rubocop-rspec.readthedocs.io/en/latest/cops_rspec/#rspecimplicitexpect
 RSpec/ImplicitExpect:
   EnforcedStyle: should
 
-# https://rubocop-rspec.readthedocs.io/en/latest/cops_rspec/#rspecexamplelength
 RSpec/ExampleLength:
+  Enabled: false
+
+RSpec/MultipleMemoizedHelpers:
+  Enabled: false
+
+Bundler/OrderedGems:
   Enabled: false
