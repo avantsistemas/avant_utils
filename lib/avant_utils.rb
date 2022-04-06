@@ -6,6 +6,7 @@ module AvantUtils
   require 'avant_utils/active_model/email_validator'
   require 'avant_utils/active_model/phone_validator'
   require 'avant_utils/active_model/url_validator'
+  require 'avant_utils/active_model/zip_validator'
   require 'avant_utils/application_search'
   require 'avant_utils/bootstrap/navbar_navigation'
   require 'avant_utils/cnpj'
