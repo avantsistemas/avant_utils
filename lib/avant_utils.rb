@@ -10,6 +10,7 @@ module AvantUtils
   require 'avant_utils/application_search'
   require 'avant_utils/bootstrap/navbar_navigation'
   require 'avant_utils/cnpj'
+  require 'avant_utils/constants'
   require 'avant_utils/cpf'
   require 'avant_utils/email'
   require 'avant_utils/params_storage'
