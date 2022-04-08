@@ -1,8 +1,9 @@
+# frozen_string_literal: true
+
 module AvantUtils
   class Url
     def self.valid?(value)
-      regexp = %r(https?://(www\.)?[-a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&/=]*))
-      !(value =~ regexp).nil?
+      Constants::URL_FORMAT.match? value
     end
 
     # Referência: http://stackoverflow.com/a/16623769/2640073

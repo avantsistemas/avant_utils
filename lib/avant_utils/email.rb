@@ -3,7 +3,7 @@
 module AvantUtils
   class Email
     def self.valid?(value)
-      !(value =~ Constants::EMAIL_FORMAT).nil?
+      Constants::EMAIL_FORMAT.match? value
     end
   end
 end
