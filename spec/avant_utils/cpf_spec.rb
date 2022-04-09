@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 describe AvantUtils::Cpf do
   describe '.valid?' do
     context 'when cpf is valid' do

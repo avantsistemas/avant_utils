@@ -1,32 +1,45 @@
+# frozen_string_literal: true
+
 module AvantUtils
   class Cpf
-    # Baseado em https://github.com/rfs/validates_cpf_cnpj
-    # O problema da gem acima é que o método valid? do módulo Cpf tem o efeito colateral de alterar o parâmetro value
-    # https://github.com/rfs/validates_cpf_cnpj/blob/master/lib/validates_cpf_cnpj/cpf.rb
-    @invalid_cpfs = %w[12345678909 11111111111 22222222222 33333333333 44444444444 55555555555
-                       66666666666 77777777777 88888888888 99999999999 00000000000]
+    INVALID_CPFS = %w[
+      12345678909
+      11111111111
+      22222222222
+      33333333333
+      44444444444
+      55555555555
+      66666666666
+      77777777777
+      88888888888
+      99999999999
+      00000000000
+    ].freeze
 
     def self.valid?(value)
-      value = value.gsub(/[^0-9]/, '')
+      stripped = value.to_s.gsub(/\D/, '')
+      return false if INVALID_CPFS.include?(stripped)
 
-      return false if @invalid_cpfs.member?(value)
+      numbers = stripped.each_char.to_a.map(&:to_i)
 
-      digit = value.slice(-2, 2)
-      control = ''
-      if value.size == 11
-        factor = 0
-        2.times do |i|
-          sum = 0
-          9.times do |j|
-            sum += value.slice(j, 1).to_i * (10 + i - j)
-          end
-          sum += (factor * 2) if i == 1
-          factor = (sum * 10) % 11
-          factor = 0 if factor == 10
-          control << factor.to_s
+      digits = numbers[0...9]
+      digits << VerifierDigit.generate(digits)
+      digits << VerifierDigit.generate(digits)
+
+      digits[-2, 2] == numbers[-2, 2]
+    end
+
+    class VerifierDigit
+      def self.generate(numbers)
+        modulus = numbers.size + 1
+
+        multiplied = numbers.map.each_with_index do |number, index|
+          number * (modulus - index)
         end
+
+        mod = multiplied.sum % 11
+        mod < 2 ? 0 : 11 - mod
       end
-      control == digit
     end
   end
 end
