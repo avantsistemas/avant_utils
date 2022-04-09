@@ -1,23 +1,26 @@
+# frozen_string_literal: true
+
 module ActiveModel
   module Validations
     class CnpjValidator < EachValidator
       def validate_each(record, attribute, value)
         return if value.blank? && options[:allow_blank]
-
         return if value.nil? && options[:allow_nil]
+        return if valid_format?(value) && valid_document?(value)
 
-        return if format_valid?(value) && document_valid?(value)
-
-        record.errors.add(attribute, :invalid_cnpj, message: options[:message], value: value)
+        record.errors.add(attribute,
+                          :invalid_cnpj,
+                          message: options[:message],
+                          value: value)
       end
 
       private
 
-      def format_valid?(value)
-        value.to_s =~ %r{\A\d{2}\.\d{3}\.\d{3}/\d{4}-\d{2}\z}
+      def valid_format?(value)
+        AvantUtils::Constants::CNPJ_FORMAT.match?(value)
       end
 
-      def document_valid?(value)
+      def valid_document?(value)
         AvantUtils::Cnpj.valid?(value)
       end
     end

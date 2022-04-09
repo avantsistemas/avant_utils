@@ -1,26 +1,46 @@
+# frozen_string_literal: true
+
 module AvantUtils
   class Cnpj
-    # Baseado em https://github.com/rfs/validates_cpf_cnpj
-    # O problema da gem acima é que o método valid? do módulo Cnpj tem o efeito colateral de alterar o parâmetro value
-    # https://github.com/rfs/validates_cpf_cnpj/blob/master/lib/validates_cpf_cnpj/cnpj.rb
+    INVALID_CNPJS = %w[
+      00000000000000
+      11111111111111
+      22222222222222
+      33333333333333
+      44444444444444
+      55555555555555
+      66666666666666
+      77777777777777
+      88888888888888
+      99999999999999
+    ].freeze
+
     def self.valid?(value)
-      value = value.gsub(/[^0-9]/, '')
-      digit = value.slice(-2, 2)
-      control = ''
-      if value.size == 14
-        factor = 0
-        2.times do |i|
-          sum = 0
-          12.times do |j|
-            sum += value.slice(j, 1).to_i * ((11 + i - j) % 8 + 2)
+      stripped = value.to_s.gsub(/\D/, '')
+      return false if INVALID_CNPJS.include?(stripped)
+
+      numbers = stripped.each_char.to_a.map(&:to_i)
+
+      digits = numbers[0...12]
+      digits << VerifierDigit.generate(digits)
+      digits << VerifierDigit.generate(digits)
+
+      digits[-2, 2] == numbers[-2, 2]
+    end
+
+    class VerifierDigit
+      def self.generate(numbers)
+        index = 2
+
+        sum = numbers.reverse.reduce(0) do |buffer, number|
+          (buffer + (number * index)).tap do
+            index = index == 9 ? 2 : index + 1
           end
-          sum += factor * 2 if i == 1
-          factor = 11 - sum % 11
-          factor = 0 if factor > 9
-          control << factor.to_s
         end
+
+        mod = sum % 11
+        mod < 2 ? 0 : 11 - mod
       end
-      control == digit
     end
   end
 end

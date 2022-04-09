@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 describe AvantUtils::Cnpj do
   describe '.valid?' do
     context 'when cnpj is valid' do

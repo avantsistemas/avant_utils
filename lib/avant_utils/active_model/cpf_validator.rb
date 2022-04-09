@@ -6,7 +6,7 @@ module ActiveModel
       def validate_each(record, attribute, value)
         return if value.blank? && options[:allow_blank]
         return if value.nil? && options[:allow_nil]
-        return if format_valid?(value) && document_valid?(value)
+        return if valid_format?(value) && valid_document?(value)
 
         record.errors.add(attribute,
                           :invalid_cpf,
@@ -16,11 +16,11 @@ module ActiveModel
 
       private
 
-      def format_valid?(value)
+      def valid_format?(value)
         AvantUtils::Constants::CPF_FORMAT.match?(value)
       end
 
-      def document_valid?(value)
+      def valid_document?(value)
         AvantUtils::Cpf.valid?(value)
       end
     end
