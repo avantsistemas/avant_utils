@@ -1,12 +1,11 @@
+# frozen_string_literal: true
+
 module AvantUtils
   class Phone
-    def self.brazilian_format?(phone)
-      /\A\d{2}\s\d{4,5}-\d{4}\z/.match?(phone.to_s)
-    end
+    BRAZILIAN_PHONE_WITHOUT_AREA_CODE = /(\d{4,5}-\d{4})/.freeze
 
-    def self.brazilian_mobile?(phone)
-      match_data = phone.to_s.match(/(\d{4,5}-\d{4})/)
-
+    def self.brazilian_mobile?(value)
+      match_data = BRAZILIAN_PHONE_WITHOUT_AREA_CODE.match(value.to_s)
       return false unless match_data
 
       first_number = match_data[0][0]

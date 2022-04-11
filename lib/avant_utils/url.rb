@@ -3,7 +3,7 @@
 module AvantUtils
   class Url
     def self.valid?(value)
-      Constants::URL_FORMAT.match? value
+      Constants::URL_FORMAT.match?(value.to_s)
     end
 
     # Referência: http://stackoverflow.com/a/16623769/2640073
