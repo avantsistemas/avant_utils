@@ -4,6 +4,7 @@ module AvantUtils
   require 'avant_utils/active_model/cnpj_validator'
   require 'avant_utils/active_model/cpf_validator'
   require 'avant_utils/active_model/email_validator'
+  require 'avant_utils/active_model/license_plate_validator'
   require 'avant_utils/active_model/phone_validator'
   require 'avant_utils/active_model/url_validator'
   require 'avant_utils/active_model/zip_validator'
