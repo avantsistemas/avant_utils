@@ -4,6 +4,10 @@ pt-BR:
     good_morning: "Bom dia"
     good_afternoon: "Boa tarde"
     good_night: "Boa noite"
+  labels:
+    today: "Hoje"
+    tomorrow: "Amanhã"
+    yesterday: "Ontem"
   errors:
     messages:
       invalid_cnpj: "não é um documento válido"
