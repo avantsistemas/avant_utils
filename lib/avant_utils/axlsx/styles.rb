@@ -41,7 +41,7 @@ module AvantUtils
       end
 
       def percent
-        @percent ||= @workbook.styles.add_style num_fmt: Axlsx::NUM_FMT_PERCENT
+        @percent ||= @workbook.styles.add_style num_fmt: ::Axlsx::NUM_FMT_PERCENT
       end
     end
   end
