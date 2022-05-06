@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module AvantUtils
   # Facilita a construção de formulários de pesquisa/filtro.
   class ApplicationSearch
@@ -40,7 +42,7 @@ module AvantUtils
 
     attr_reader :scope
 
-    # Subclasses podem sobreescrever essa classe para redefinir
+    # Subclasses podem sobreescrever esse método para redefinir
     # o escopo da pesquisa com base nos atributos de pesquisa.
     def redefine_scope
       @scope
@@ -80,9 +82,9 @@ module AvantUtils
 
     def define_scope(scope, defined_by_method: nil)
       unless scope.is_a?(ActiveRecord::Relation)
-        message = ["Tentativa de definição do escopo para #{scope || 'nil'}."]
-        message << ['O escopo precisa ser um objeto ActiveRecord::Relation.']
-        message << ["Verifique o retorno do método `#{defined_by_method}` de #{self.class}."] if defined_by_method
+        message = ["Tentativa de definição do escopo para #{scope.presence || 'blank'}."]
+        message << 'O escopo precisa ser um objeto ActiveRecord::Relation.'
+        message << "Verifique o retorno do método `#{defined_by_method}` de #{self.class}." if defined_by_method
         raise message.join(' ')
       end
       @scope = scope
