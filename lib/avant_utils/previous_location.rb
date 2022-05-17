@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module AvantUtils
   module PreviousLocation
     def self.included(base)
@@ -15,12 +17,10 @@ module AvantUtils
     # default quando a informação anterior não existir. Este método deve ser utilizado sempre em conjunto com o método
     # store_previous_location. Exemplo, a ação `new` chama o método #store_previous_location e a ação create chama o
     # método #previous_location.
-    def previous_location(default:, params: {})
+    def previous_location(default:)
       previous_location = SessionStorage.new(request, session).retrieve_previous_location
 
-      previous_location ||= default
-
-      Url.add_params previous_location, params
+      previous_location || default
     end
 
     class SessionStorage
@@ -66,7 +66,7 @@ module AvantUtils
 
         # Caso o referenciador contenha o parâmetro `spl` com valor 0 ou 1, adiciona spl=0 no
         # caminho de retorno para preservar o caminho da localização anterior do referenciador.
-        referer.match?(/spl=[01]/) ? path + '?spl=0' : path
+        referer.match?(/spl=[01]/) ? "#{path}?spl=0" : path
       end
 
       def previous_locations
