@@ -19,8 +19,7 @@ module AvantUtils
     # método #previous_location.
     def previous_location(default:)
       previous_location = SessionStorage.new(request, session).retrieve_previous_location
-
-      previous_location || default
+      previous_location.blank? || previous_location.include?(request.path) ? default : previous_location
     end
 
     class SessionStorage
