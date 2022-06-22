@@ -7,7 +7,6 @@ module AvantUtils
 
     def initialize(scope)
       define_scope(scope)
-      @empty = true
     end
 
     def self.scope(scope)
@@ -22,10 +21,6 @@ module AvantUtils
 
     def result
       @scope
-    end
-
-    def empty?
-      @empty
     end
 
     def model_name
@@ -77,7 +72,6 @@ module AvantUtils
     def narrow_scope(search_method, value)
       new_scope = send(search_method, value)
       define_scope(new_scope, defined_by_method: search_method)
-      @empty = false
     end
 
     def define_scope(scope, defined_by_method: nil)
