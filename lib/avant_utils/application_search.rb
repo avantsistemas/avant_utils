@@ -19,7 +19,7 @@ module AvantUtils
       self
     end
 
-    def result
+    def results
       @scope
     end
 
