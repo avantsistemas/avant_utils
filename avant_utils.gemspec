@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require_relative 'lib/avant_utils/version'
+require_relative 'lib/avant/version'
 
 Gem::Specification.new do |spec|
   spec.name        = 'avant_utils'
-  spec.version     = AvantUtils::Version::STRING
+  spec.version     = Avant::Version::STRING
   spec.summary     = 'Avant Utils'
   spec.description = 'Códigos utilizados em projetos Ruby on Rails da Avant Sistemas.'
   spec.authors     = ['Lucas Repolês']
