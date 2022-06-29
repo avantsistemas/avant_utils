@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'active_support/all'
+require 'active_support/core_ext/numeric/time'
 
 module Avant
   class Dates
@@ -24,6 +24,7 @@ module Avant
     class << self
       private
 
+      # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
       def humanized_time(time)
         st = Time.current.beginning_of_day
         nd = Time.current.end_of_day
@@ -58,6 +59,7 @@ module Avant
           I18n.l(date, format: '%d/%m/%y')
         end
       end
+      # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
     end
   end
 end
