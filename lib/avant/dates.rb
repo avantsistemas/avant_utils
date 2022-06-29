@@ -21,6 +21,13 @@ module Avant
       raise ArgumentError, "Object must be a Date, DateTime or Time object. #{date.inspect} given."
     end
 
+    # Calcula a idade em anos a partir de uma data.
+    # http://stackoverflow.com/a/2357790/2640073
+    def self.age(dob)
+      now = Time.now.utc.to_date
+      now.year - dob.year - (now.month > dob.month || (now.month == dob.month && now.day >= dob.day) ? 0 : 1)
+    end
+
     class << self
       private
 
