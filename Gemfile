@@ -11,4 +11,7 @@ gem 'rubocop-performance', require: false
 gem 'rubocop-rails', require: false
 gem 'rubocop-rspec', require: false
 
+# Hooks para o git [https://github.com/sds/overcommit]
+gem 'overcommit', require: false
+
 gemspec
