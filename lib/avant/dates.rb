@@ -1,17 +1,19 @@
 # frozen_string_literal: true
 
+require 'active_support/all'
+
 module Avant
-  # Formatação "humanizada" de datas (date, datetime ou time).
-  #
-  # Exemplos:
-  #
-  # AvantUtils::HumanizedDate.humanize(Time.current) => "Hoje, 19:08"
-  # AvantUtils::HumanizedDate.humanize(Time.current.tormorrow) => "Amanhã, 19:08"
-  # AvantUtils::HumanizedDate.humanize(Time.current.yesterday) => "Ontem, 19:08"
-  # AvantUtils::HumanizedDate.humanize(Time.current.beginning_of_week) => "Seg, 00:00"
-  #
-  # Referência: http://stackoverflow.com/a/21150964
-  class HumanizedDate
+  class Dates
+    # Formatação "humanizada" de datas (date, datetime ou time).
+    #
+    # Exemplos:
+    #
+    #   Avant::Dates.humanize(Time.current) => "Hoje, 19:08"
+    #   Avant::Dates.humanize(Time.current.tormorrow) => "Amanhã, 19:08"
+    #   Avant::Dates.humanize(Time.current.yesterday) => "Ontem, 19:08"
+    #   Avant::Dates.humanize(Time.current.beginning_of_week) => "Seg, 00:00"
+    #
+    # Referência: http://stackoverflow.com/a/21150964
     def self.humanize(date)
       return humanized_time(date) if date.is_a?(Time)
       return humanized_date(date) if date.is_a?(Date)

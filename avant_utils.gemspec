@@ -15,5 +15,6 @@ Gem::Specification.new do |spec|
   spec.required_ruby_version = '>= 2.7'
   spec.metadata['rubygems_mfa_required'] = 'true'
 
-  spec.add_development_dependency 'activemodel', '>= 5.2'
+  spec.add_development_dependency 'activemodel'
+  spec.add_development_dependency 'activesupport'
 end
