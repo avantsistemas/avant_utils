@@ -13,7 +13,7 @@ module Avant
       new(base_scope)
     end
 
-    def search(attributes)
+    def search(attributes = {})
       perform_search(attributes) if attributes.present?
       define_scope(redefine_scope, defined_by: :redefine_scope)
       self
@@ -38,6 +38,7 @@ module Avant
       attributes.each do |attribute_name, attribute_value|
         search_method = :"#{attribute_name}_search"
         if respond_to?(search_method, true)
+          attribute_value = attribute_value.strip if attribute_value.respond_to?(:strip)
           attribute_value = store_attribute(attribute_name, attribute_value)
           narrow_scope(search_method, attribute_value) if attribute_value.present?
         else
@@ -47,7 +48,6 @@ module Avant
     end
 
     def store_attribute(attribute_name, attribute_value)
-      attribute_value = attribute_value.strip
       setter_method = :"#{attribute_name}="
       variable_name = :"@#{attribute_name}"
 
