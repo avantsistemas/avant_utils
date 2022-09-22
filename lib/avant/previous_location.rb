@@ -4,6 +4,7 @@ module Avant
   module PreviousLocation
     def self.included(base)
       base.helper_method :previous_location
+      base.helper_method :previous_location?
     end
 
     # Se o parâmetro `spl` é igual a 1, este método armazena na sessão o caminho da localização anterior (obtido
@@ -20,6 +21,11 @@ module Avant
     def previous_location(default:)
       previous_location = SessionStorage.new(request, session).retrieve_previous_location
       previous_location.blank? || previous_location.include?(request.path) ? default : previous_location
+    end
+
+    # Indica se há uma localização armazenada anteriormente.
+    def previous_location?
+      SessionStorage.new(request, session).retrieve_previous_location.present?
     end
 
     class SessionStorage
