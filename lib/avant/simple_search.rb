@@ -7,6 +7,7 @@ module Avant
 
     def initialize(base_scope)
       define_scope(base_scope)
+      @empty = true
     end
 
     def self.scope(base_scope)
@@ -22,6 +23,11 @@ module Avant
     # Returns the result of the search.
     def result
       @scope
+    end
+
+    # Empty means the search didn't filtered anything from the original scope.
+    def empty?
+      @empty
     end
 
     def model_name
@@ -64,6 +70,7 @@ module Avant
     def narrow_scope(search_method, attribute_value)
       new_scope = send(search_method, attribute_value)
       define_scope(new_scope, defined_by: search_method)
+      @empty = false
     end
 
     def define_scope(scope, defined_by: nil)
